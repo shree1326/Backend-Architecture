@@ -1,0 +1,96 @@
+.custom-form {
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .custom-form label {
+    font-weight: bold;
+  }
+
+  .custom-form input[type="text"],
+  .custom-form input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .custom-form button[type="submit"],
+  .custom-form button[type="button"] {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .custom-form button[type="submit"]:hover,
+  .custom-form button[type="button"]:hover {
+    background-color: #0056b3;
+  }
+
+  /* Custom table styles */
+  .custom-table {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .custom-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+  }
+
+  .custom-table th,
+  .custom-table td {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .custom-table th {
+    /* background-color: #90bdec; */
+    color: #000000;
+  }
+
+  .custom-table td {
+    border: 1px solid #ddd;
+  }
+
+  /* Custom pagination styles (You may need to customize this further) */
+  .custom-pagination {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .custom-pagination .page-link {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin: 0 3px;
+    cursor: pointer;
+  }
+
+  .custom-pagination .page-link:hover {
+    background-color: #0056b3;
+  }
+
+  .custom-pagination .page-item.disabled .page-link {
+    background-color: #ccc;
+    color: #555;
+    cursor: not-allowed;
+  }
+
+  .custom-table .row.mb-4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }

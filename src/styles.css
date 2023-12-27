@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+.bgImage { 
+    background-image: url(./assets/BlueWhiteBg.jpg); 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+  }
+
+.navbar {
+    height: 90px !important;
+}

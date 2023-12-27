@@ -1,0 +1,153 @@
+<div class="bgImage">
+     <!-- header -->
+  <nav class="navbar navbar-expand-lg navbar-light fs-5">
+    <a class="navbar-brand fs-3" href="#" style="color: darkblue; margin-left: 20px; font-weight: 500;">Microservices</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="true" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse show" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink="/orders" style="color: darkblue; font-weight: 500;">Orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/products" style="color: darkblue; font-weight: 500;">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/customers" style="color: darkblue; font-weight: 500;">Customers</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+<!-- Display list of order in grid. The Grid should have columns for Name, 
+  Description, Price and Quantity. The quantity column should have add and 
+  remove options -->
+<form class="form-horizontal" [formGroup]="orderForm" >
+  <h1 style="text-align: center;color: darkblue;">Orders Page</h1> <br>
+  <div>
+  <div class="form-group">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <label for="Name">Order Name</label>
+          <input type="text" class="form-control" id="Name" placeholder="Enter Order Name" formControlName="Name">
+        </div>
+        <div class="col-sm">
+          <label for="Description">Description</label>
+          <input type="text" class="form-control" id="Description" placeholder="Enter Description" formControlName="Description">
+        </div>
+      </div>
+    </div>
+  </div><br/>
+  <div class="form-group">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <label for="Price">Price</label>
+          <input type="text" class="form-control" id="Price" placeholder="Enter Price" formControlName="Price">
+        </div>
+        <div class="col-sm">
+          <label for="Quantity">Quantity</label>
+          <input type="text" class="form-control" id="Quantity" placeholder="Enter Quantity" formControlName="Quantity">
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+   <div class="form-group">
+    <div class="container">
+     <!-- Bootstrap buttons of Submit, Update and Clear button right ride of the page -->
+      <div class="row">
+        <div class="col-sm" style="text-align: right;">
+          <button type="submit" class="btn btn-primary" (click)="PostOrder(orderForm.value)" [disabled]="!orderForm.valid">Submit</button>
+        &nbsp;
+          <button type="button" class="btn btn-primary" (click)="PostOrder(orderForm.value)" [disabled]="!orderForm.valid">Update</button>
+          &nbsp;
+          <button type="button" class="btn btn-primary" (click)="Clear(orderForm.value)">Clear</button>
+        </div>
+      </div>
+    </div>
+  <br />
+  </div>
+  <div class="form-group" style="width: 30%; margin-left: 160px;">
+    <label for="search-text">Search Text</label>
+    <input class="form-control" type="text" name="search" [formControl]="searchText" autocomplete="on" placeholder=" SEARCH  ">
+  </div>
+  <div class="form-group" style="margin-left: 160px; width: 10%;">
+    <label for="itemsPerPage">Items Per Page:</label>
+    <select id="itemsPerPage" class="form-control" (change)="onItemsPerPageChange($event)">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <!-- Add more options as needed -->
+    </select>
+  </div>
+  <div><br>
+    <div class="alert alert-success" style="text-align: center; margin-left: 160px; margin-right: 160px;"><b>Order List</b></div>
+    <div class="table-responsive" style="margin-left: 160px; margin-right: 160px;">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ord of Orders | filter: (searchText.valueChanges | async) ; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ord.name}}</td>
+          <td>{{ord.description}}</td>
+          <td>{{ord.price}}</td>
+          <td>{{ord.quantity}}</td>
+          <td><button type="button" class="btn1" matTooltip="Click Edit Button" (click)='OrderDetailsToEdit(ord.id)'>Edit</button>
+            |
+            <button type="button" class="btn1" matTooltip="Click Delete Button" (click)="DeleteOrder(ord.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+  </form>
+</div>
+<!-- Pagination Controls -->
+<div class="pagination-container" style="margin-left: 160px;">
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <button class="page-link" (click)="goToPage(1)" aria-label="First">
+          <span aria-hidden="true">First</span>
+        </button>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <button class="page-link" (click)="previousPage()" aria-label="Previous">
+          <span aria-hidden="true">Previous</span>
+        </button>
+      </li>
+      <li class="page-item" *ngFor="let page of pages" [class.active]="currentPage === page">
+        <button class="page-link" (click)="goToPage(page)">{{ page }}</button>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPageCount">
+        <button class="page-link" (click)="nextPage()" aria-label="Next">
+          <span aria-hidden="true">Next</span>
+        </button>
+      </li>
+      <li class="page-item" [class.disabled]="currentPage === totalPageCount">
+        <button class="page-link" (click)="goToPage(totalPageCount)" aria-label="Last">
+          <span aria-hidden="true">Last</span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+
+
+

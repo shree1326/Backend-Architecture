@@ -1,0 +1,33 @@
+<div class="bgImage">
+  <div class="container">
+    <div class="row justify-content-center align-items-center vh-100">
+      <div class="col-md-6">
+        <div class="card rounded shadow-lg">
+          <div class="card-body p-4">
+            <h1 class="card-title text-center mb-4" style="color: darkblue;">Login</h1>
+
+            <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+              <div *ngIf="invalidLogin" class="alert alert-danger mb-3">Invalid username or password.</div>
+
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" id="username" name="username" [(ngModel)]="credentials.username" 
+                  class="form-control" placeholder="Enter your User Name" required>
+              </div>
+
+              <div class="mb-4">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" [(ngModel)]="credentials.password" 
+                  class="form-control" placeholder="Enter your Password" required>
+              </div>
+
+              <div class="text-center">
+                <button class="btn btn-primary btn-block" type="submit" [disabled]="!loginForm.valid">Log in</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
